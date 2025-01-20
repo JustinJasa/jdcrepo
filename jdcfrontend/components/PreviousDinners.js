@@ -1,24 +1,38 @@
-'use client'
+"use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllDinners } from "@/utils/apicalls";
+import styles from '../styles/components/PreviousDinners.module.css'
 
 const PreviousDinners = () => {
+  const [dinners, setDinners] = useState();
 
+  const fetchDinners = async () => {
+    try {
+      const dinnerData = await getAllDinners(); // Await the promise
+      setDinners(dinnerData); // Store the resolved data in state
+      console.log(dinnerData); // Log the resolved data
+    } catch (error) {
+      console.error("Error fetching dinners:", error);
+    }
+  };
 
-    useEffect(() => {
-        getAllDinners()
-    },[])
+  useEffect(() => {
+    fetchDinners();
+  }, []);
 
   return (
-    <section>
-      <h2>Previous Dinners</h2>
-      <ul>
-        <li>Mexican Extravaganza - 04.01.25</li>
-        <li>Jasa's Filipino Feast - 10.12.24</li>
-        <li>A Dinner in Amalfi Coast - 04.11.24</li>
-        <li>Masala Mingle - 015.10.24</li>
-      </ul>
+    <section className={styles.container}>
+      <h2 className={styles.heading}>Previous Dinners</h2>
+      {dinners &&
+        dinners.map((dinner) => {
+          return (
+            <div key={dinner.dinnerId} className={styles.dinnerinfo}>
+              <h3 className={styles.info}>{dinner.name}</h3>
+              <p className={styles.info}>{new Date(dinner.date).toLocaleDateString()}</p>
+            </div>
+          );
+        })}
     </section>
   );
 };

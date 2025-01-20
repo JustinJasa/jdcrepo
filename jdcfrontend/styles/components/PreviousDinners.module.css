@@ -1,0 +1,22 @@
+.heading {
+    font-size: var(--fs-48);
+    text-align: center;
+}
+
+.container { 
+    margin-top: 128px;
+    width: 80%;
+    
+}
+
+.dinnerinfo{ 
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px white solid;
+    padding: 8px;
+    min-width: fit-content;
+}
+
+.info { 
+    font-size: var(--fs-28);
+}

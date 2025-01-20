@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "@chakra-ui/react";
 import Image from "next/image";
 import styles from "../styles/components/FeaturedDinners.module.css";
-import { GiEating } from "react-icons/gi";
 import AlmafiImage from "../public/almafi.jpg";
 
 const FeaturedDinners = () => {
