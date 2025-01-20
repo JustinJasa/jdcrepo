@@ -1,6 +1,22 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Font Sizes */ 
+  --fs-12: 12px; /* Smallest */
+  --fs-16: 16px; /* Default/Base size */
+  --fs-20: 20px; /* Slightly larger */
+  --fs-24: 24px; /* Medium */
+  --fs-28: 28px; /* Large */
+  --fs-32: 32px; /* Extra Large */
+  --fs-36: 36px; /* Heading size */
+  --fs-40: 40px; /* Large Heading */
+  --fs-44: 44px; /* Extra Large Heading */
+  --fs-48: 48px; 
+  --fs-52: 52px; 
+  --fs-56: 56px; 
+  --fs-96: 96px; /* Extra Extra Large Heading */
+  --fs-heading: 144px; /* Hero section heading */
+  --container-size: 1200px /* Container Size */
 }
 
 @media (prefers-color-scheme: dark) {

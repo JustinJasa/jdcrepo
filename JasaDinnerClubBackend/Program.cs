@@ -6,10 +6,9 @@ using JasaDinnerClubBackend.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
-
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -19,6 +18,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new TimeSpanConverter());
+});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy  =>
+                      {
+                         policy.WithOrigins("http://localhost:3000")
+                            .AllowAnyHeader() // Allow any HTTP headers
+                            .AllowAnyMethod(); // Allow any HTTP methods (GET, POST, PUT, DELETE, etc.)   
+                      });
 });
 
 var app = builder.Build();
@@ -264,5 +273,6 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     // db.Database.Migrate(); // Automatically apply migrations
 }
+app.UseCors(MyAllowSpecificOrigins);
 
 app.Run();

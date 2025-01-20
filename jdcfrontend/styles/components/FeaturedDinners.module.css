@@ -1,0 +1,61 @@
+.dinnercontainer{ 
+    margin-top: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 16px; 
+    max-width: 1000px;
+    padding: 64px;
+    border-radius: 12px;
+    background: radial-gradient(circle, rgba(255,193,7,1) 0%, rgba(76,168,175,1) 40%, rgba(255,87,34,1) 100%);;
+}
+.container{ 
+    margin-top: 128px;
+}
+
+.heading{ 
+    font-size: var(--fs-48);
+    text-align: center;
+}
+
+.date{
+    font-size: var(--fs-24);
+}
+
+.button{ 
+    padding: 12px 24px;
+    font-size: var(--fs-24);
+}
+
+.buttonicon{
+    height: var(--fs-20);
+    width: var(--fs-20);
+}
+
+.time{
+    font-size: var(--fs-20);
+    color: lightgray;
+}
+
+.dinnertitle{ 
+    font-size: var(--fs-52);
+    margin-bottom: 12px;
+}
+
+.eventdescription{
+    width: 80%;
+    font-size: var(--fs-20);
+    margin: 12px 0px;
+}
+
+.eventattendees{
+    display: flex;
+    gap: 12px;
+    font-size: var(--fs-20);
+    margin-bottom: 24px;
+}
+
+.eventimage{ 
+    border-radius: 20px;
+}
