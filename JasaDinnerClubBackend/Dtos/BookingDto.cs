@@ -6,5 +6,6 @@ public class BookingDto
     public string? Request { get; set; }
     public required string AttendeeName { get; set; }
     public required string AttendeeNumber { get; set; }
+    public int BookingCapacity {get; set;}
     public string? DinnerEventName { get; set; }
 }

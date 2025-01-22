@@ -15,9 +15,12 @@ public class Booking
     [Required]
     public int AttendeeId {get; set;}
 
+    // Optional: Special requests or allergies
     public Attendee? Attendee { get; set; }// Navigation property
 
     public string? Request {get; set;}
 
+    [Required]
+    public int BookingCapacity {get; set;}
 
 }
