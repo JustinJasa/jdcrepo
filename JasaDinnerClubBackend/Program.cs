@@ -75,7 +75,7 @@ app.MapPost("/bookings", async (BookingDto dto, AppDbContext db) =>
     {
         DinnerId = dto.DinnerId,
         AttendeeId = attendee.AttendeeId,
-        Request = dto.Request
+        Request = dto.Request,
         BookingCapacity = dto.BookingCapacity
     };
     db.Bookings.Add(booking);

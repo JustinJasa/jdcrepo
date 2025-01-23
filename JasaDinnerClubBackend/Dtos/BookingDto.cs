@@ -1,11 +1,8 @@
 public class BookingDto
 {
-    public int BookingId { get; set; }
     public int DinnerId { get; set; }
-    public int AttendeeId { get; set; }
-    public string? Request { get; set; }
-    public required string AttendeeName { get; set; }
-    public required string AttendeeNumber { get; set; }
-    public int BookingCapacity {get; set;}
-    public string? DinnerEventName { get; set; }
+    public string AttendeeName { get; set; } = string.Empty; // Required attendee name
+    public string AttendeeNumber { get; set; } = string.Empty; // Required attendee number
+    public string? Request { get; set; } // Optional special requests or allergies
+    public int BookingCapacity { get; set; } // Number of attendees (1 or 2)
 }
