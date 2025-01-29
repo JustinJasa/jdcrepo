@@ -1,4 +1,28 @@
-# Private Dinner Booking Site 🍽️
+# Private Dinner Booking Site 🍽️ (Currently In Progress Building)
+
+# ✅ To-Do List
+
+## 📌 Core Features
+- [ ] Admin Authentication
+- [ ] Twilio Messaging 
+- [x] Booking for Dinner
+
+## 🖥️ Frontend (React)
+- [x] Design and implement UI components
+- [x] Connect frontend to backend API
+- [x] Add form validation for bookings
+
+## 🛠️ Backend (.NET)
+- [ ] Set up authentication with JWT
+- [x] Create endpoints for booking management
+- [x] Implement database schema for events and users
+- [x] API error handling and validation
+
+## 📦 Database (SQL)
+- [x] Design schema for users, bookings, and events
+- [x] Implement database migrations
+- [ ] Optimize queries for performance
+
 
 ## Overview
 This is a small booking site designed for private dinners hosted for friends. The platform allows users to schedule, manage, and reserve dinner events easily. The project is built with:
