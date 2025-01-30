@@ -1,10 +1,17 @@
-import React from "react";
+"use client";
+
+import { React, useState } from "react";
 import { Button } from "@chakra-ui/react";
+import BookingModal from "../components/BookingModal";
 import Image from "next/image";
 import styles from "../styles/components/FeaturedDinners.module.css";
 import AlmafiImage from "../public/almafi.jpg";
 
 const FeaturedDinners = () => {
+  const [openModal, setModal] = useState(false);
+
+  let uniqueId = 1002
+
   return (
     <section className={styles.container}>
       {/* <h2 className={styles.heading}>Upcoming Dinners</h2> */}
@@ -22,9 +29,14 @@ const FeaturedDinners = () => {
           </p>
           <div className={styles.eventattendees}>
             <p className={styles.attendees}>Attendees: XX</p>
-            <p className={styles.capacity}>Attendees: XX</p>
+            <p className={styles.capacity}>Capacity: XX</p>
           </div>
-          <Button colorPalette="cyan" variant="surface" className={styles.button}>
+          <Button
+            colorPalette="cyan"
+            variant="surface"
+            className={styles.button}
+            onClick={() => setModal(!openModal)}
+          >
             Click for good feed ✅✅
           </Button>
         </div>
@@ -36,6 +48,8 @@ const FeaturedDinners = () => {
           />
         </div>
       </div>
+
+      {openModal && <BookingModal modalState={openModal} setModal={setModal} uniqueId={uniqueId}/>}
     </section>
   );
 };

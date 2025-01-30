@@ -1,0 +1,52 @@
+.bookingmodal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+    display: flex; /* Flexbox for centering */
+    align-items: center; /* Vertical centering */
+    justify-content: center; /* Horizontal centering */
+}
+
+.modalcontent {
+    background-color: black;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px; /* Optional: Set a max width for better design */
+    border-radius: 8px; /* Optional: Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.label{ 
+    display: flex;
+    gap: 12px;
+    font-size: var(--fs-20);
+}
+
+.button{ 
+    padding: 12px 24px;
+    font-size: var(--fs-24);
+}
+
+.peopleselector1, .peopleselector2{
+    padding: 0px 8px;
+    margin: 0px 4px;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+    cursor: pointer;
+}
+
+.peopleselector1:hover, .peopleselector2:hover{ 
+    background-color: black;
+    color: white;
+    transition: 0.2;
+}
