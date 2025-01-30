@@ -4,15 +4,42 @@ using JasaDinnerClubBackend.Models;
 using Mapster;
 using JasaDinnerClubBackend.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    // Define the security scheme for JWT Bearer tokens
+    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Description = "Enter 'Bearer' followed by a space and your JWT token.\nExample: 'Bearer abc123xyz'"
+    });
+
+    // Apply the security requirement globally
+    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}  // No specific scopes required
+        }
+    });
+});
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -22,15 +49,20 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy  =>
+                      policy =>
                       {
-                         policy.WithOrigins("http://localhost:3000")
-                            .AllowAnyHeader() // Allow any HTTP headers
-                            .AllowAnyMethod(); // Allow any HTTP methods (GET, POST, PUT, DELETE, etc.)   
+                          policy.WithOrigins("http://localhost:3000")
+                             .AllowAnyHeader() // Allow any HTTP headers
+                             .AllowAnyMethod(); // Allow any HTTP methods (GET, POST, PUT, DELETE, etc.)   
                       });
 });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+// Configure
+
 
 // Map Endpoints
 
@@ -128,7 +160,7 @@ app.MapDelete("/bookings/{id}", async (int id, AppDbContext db) =>
     {
         return Results.Problem($"An error occurred while deleting the booking: {ex.Message}");
     }
-});
+}).RequireAuthorization();
 
 /***** Dinner Requests ******/
 app.MapGet("/dinners", async (AppDbContext db) => await db.DinnerEvents.ToListAsync());
@@ -164,7 +196,7 @@ app.MapPost("/dinners", async (DinnerEventDto dto, AppDbContext db) =>
     await db.SaveChangesAsync();
 
     return Results.Created($"/dinners/{dinner.DinnerId}", dinner);
-});
+}).RequireAuthorization();
 app.MapPut("/dinners/{id}", async (int id, DinnerEventDto dto, AppDbContext db) =>
 {
     // Validate date format
@@ -192,7 +224,7 @@ app.MapPut("/dinners/{id}", async (int id, DinnerEventDto dto, AppDbContext db) 
 
     // Return NoContent to indicate successful update
     return Results.NoContent();
-});
+}).RequireAuthorization();
 
 app.MapDelete("/dinners/{id}", async (int id, AppDbContext db) =>
 {
@@ -203,7 +235,7 @@ app.MapDelete("/dinners/{id}", async (int id, AppDbContext db) =>
         return Results.Ok();
     }
     return Results.NotFound();
-});
+}).RequireAuthorization();
 
 /***** Attendees Requests ******/
 app.MapGet("/attendees", async (AppDbContext db) => await db.Attendee.ToListAsync());
@@ -256,7 +288,7 @@ app.MapDelete("/attendees/{id}", async (int id, AppDbContext db) =>
         return Results.Ok();
     }
     return Results.NotFound();
-});
+}).RequireAuthorization();
 
 
 
@@ -268,6 +300,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -275,5 +309,6 @@ using (var scope = app.Services.CreateScope())
     // db.Database.Migrate(); // Automatically apply migrations
 }
 app.UseCors(MyAllowSpecificOrigins);
+
 
 app.Run();

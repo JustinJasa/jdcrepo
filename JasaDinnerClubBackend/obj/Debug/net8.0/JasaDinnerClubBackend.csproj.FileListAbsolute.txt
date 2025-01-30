@@ -344,3 +344,12 @@
 /Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/obj/Debug/net8.0/JasaDinnerClubBackend.pdb
 /Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/obj/Debug/net8.0/JasaDinnerClubBackend.genruntimeconfig.cache
 /Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/obj/Debug/net8.0/ref/JasaDinnerClubBackend.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Binder.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Microsoft.Extensions.Http.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Twilio.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Twilio.AspNet.Common.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Twilio.AspNet.Core.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
