@@ -5,6 +5,7 @@ using Mapster;
 using JasaDinnerClubBackend.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -14,6 +15,11 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    options.MapType<IFormFile>(() => new Microsoft.OpenApi.Models.OpenApiSchema
+    {
+        Type = "string",
+        Format = "binary"
+    });
     // Define the security scheme for JWT Bearer tokens
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
@@ -176,12 +182,16 @@ app.MapGet("/dinners/{id}/attendees", async (int id, AppDbContext db) =>
     return attendees.Any() ? Results.Ok(attendees) : Results.NotFound();
 });
 app.MapGet("/dinners/{id}/capacity", async (int id, AppDbContext db) => await db.DinnerEvents.FindAsync(id) is DinnerEvent dinner ? Results.Ok(dinner.Capacity) : Results.NotFound());
-app.MapPost("/dinners", async (DinnerEventDto dto, AppDbContext db) =>
+app.MapPost("/dinners", async ([FromForm] DinnerEventDto dto, AppDbContext db) =>
 {
+    // Parse date and time as needed
     if (!DateTime.TryParse(dto.Date, out var parsedDate))
         return Results.BadRequest("Invalid date format. Use dd/MM/yyyy.");
     if (!TimeSpan.TryParse(dto.Time, out var parsedTime))
         return Results.BadRequest("Invalid time format. Use HH:mm:ss.");
+
+    // Process the uploaded image using ImageHelper
+    var imagePath = await ImageHelper.SaveImage(dto.ImageFile) ?? "images/default.jpg";
 
     var dinner = new DinnerEvent
     {
@@ -189,14 +199,16 @@ app.MapPost("/dinners", async (DinnerEventDto dto, AppDbContext db) =>
         Date = parsedDate,
         Time = parsedTime,
         Capacity = dto.Capacity,
-        Description = dto.Description
+        Description = dto.Description,
+        ImagePath = imagePath
     };
 
     db.DinnerEvents.Add(dinner);
     await db.SaveChangesAsync();
 
     return Results.Created($"/dinners/{dinner.DinnerId}", dinner);
-}).RequireAuthorization();
+})
+.Accepts<DinnerEventDto>("multipart/form-data").DisableAntiforgery();
 app.MapPut("/dinners/{id}", async (int id, DinnerEventDto dto, AppDbContext db) =>
 {
     // Validate date format
@@ -309,6 +321,12 @@ using (var scope = app.Services.CreateScope())
     // db.Database.Migrate(); // Automatically apply migrations
 }
 app.UseCors(MyAllowSpecificOrigins);
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "uploads")),
+    RequestPath = "/images"
+});
 
 
 app.Run();

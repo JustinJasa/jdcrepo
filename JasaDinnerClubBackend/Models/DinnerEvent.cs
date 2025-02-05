@@ -18,6 +18,9 @@ public class DinnerEvent
     [Required(ErrorMessage = "Please Set Capacity")]
     public int Capacity { get; set; }
 
+    [Required(ErrorMessage = "Please upload an image")]
+    public string ImagePath { get; set; }
+
     [Required(ErrorMessage = "Please set a short and fun description of the dinner")]
     public string? Description { get; set; }
 

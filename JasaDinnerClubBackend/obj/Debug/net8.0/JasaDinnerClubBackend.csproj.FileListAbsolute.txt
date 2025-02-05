@@ -353,3 +353,4 @@
 /Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Twilio.AspNet.Common.dll
 /Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Twilio.AspNet.Core.dll
 /Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/jasa/Desktop/All Folders/dotnet learnings/JustinsMiniRestaurant/jdc/JasaDinnerClubBackend/bin/Debug/net8.0/Swashbuckle.AspNetCore.Annotations.dll
